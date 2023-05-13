@@ -1,2 +1,19 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!!");
+﻿using System;
+using System.Numerics;
+using System.Xml.Linq;
+
+namespace Module_8{
+    internal class Program{
+        static void Main(){
+            
+        }
+    }
+}
+
+
+
+
+
+
+
+
