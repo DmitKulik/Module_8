@@ -1,25 +1,27 @@
 ﻿using System;
+using System.IO;
 
 namespace Module_8{
     internal class Program{
         static void Main(){
-            
-        }
-        public class Drive{ // класс Drive для представления диска в системе
-            public Drive(string _name, long _totalSpace, long _freeSpace){
-                Name = _name;
-                TotalSpace = _totalSpace;
-                FreeSpace = _freeSpace;
+            {
+                // получим системные диски
+                DriveInfo[] drives = DriveInfo.GetDrives();
+
+                // Пробежимся по дискам и выведем их свойства
+                foreach (DriveInfo drive in drives)
+                {
+                    Console.WriteLine($"Название: {drive.Name}");
+                    Console.WriteLine($"Тип: {drive.DriveType}");
+                    if (drive.IsReady)
+                    {
+                        Console.WriteLine($"Объем: {drive.TotalSize}");
+                        Console.WriteLine($"Свободно: {drive.TotalFreeSpace}");
+                        Console.WriteLine($"Метка: {drive.VolumeLabel}");
+                    }
+                }
             }
-            // инициализация свойства для хранения (Name TotalSpace FreeSpace) нового объекта в методе-конструкторе
-            public string Name { get; }    
-            public long TotalSpace { get; }
-            public long FreeSpace { get; }
-        }
-        public enum DriveType{
-            Usb,
-            HDD,
-            CD
+
         }
     }
 }
