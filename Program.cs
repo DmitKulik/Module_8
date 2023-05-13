@@ -26,9 +26,39 @@ namespace Module_8{
 
                     foreach (string s in files)   // Выведем их все
                         Console.WriteLine(s);
+
+                }
+                //метод, который считает количество файлов и папок в корне вашего диска и выводит итоговое количество объектов
+                try
+                {
+                    DirectoryInfo dirInfo = new DirectoryInfo(@"/" /* Или С:\\ для Windows */ );
+                    if (dirInfo.Exists)
+                    {
+                        Console.WriteLine(dirInfo.GetDirectories().Length + dirInfo.GetFiles().Length);
+                    }
+
+                    DirectoryInfo newDirectory = new DirectoryInfo(@"/newDirectory");// создание новой директории в корне вашего диска
+                    if (!newDirectory.Exists)
+                        newDirectory.Create();
+
+                    Console.WriteLine(dirInfo.GetDirectories().Length + dirInfo.GetFiles().Length);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                // метод удаления каталога
+                try
+                {
+                    DirectoryInfo dirInfo = new DirectoryInfo(@"/newDirectory");
+                    dirInfo.Delete(true); // Удаление со всем содержимым
+                    Console.WriteLine("Каталог удален");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
                 }
             }
-
         }
     }
 }
