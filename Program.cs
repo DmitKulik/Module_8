@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.FileIO;
+using System;
 using System.IO;
 
 namespace Module_8
@@ -14,16 +15,30 @@ namespace Module_8
             static void GetCatalogs()
             {
 
-                DirectoryInfo newDirectory = new DirectoryInfo(@"C:/1/newDirectory");// создание новой директории в корне вашего диска
+                DirectoryInfo newDirectory = new DirectoryInfo(@"C:\Users\uites\OneDrive\Рабочий стол\66");// создание новой директории в корне вашего диска
                 if (!newDirectory.Exists)
                     newDirectory.Create();
 
+                var newPath = @"C:\Users\uites\OneDrive\Рабочий стол\66";
 
-                DirectoryInfo dirInfo = new DirectoryInfo(@"C:/1/newDirectory");
-                string newPath = @"C://RECYCLE"; // тут нужно к корзине обратиться но пока не понял как
 
-                if (dirInfo.Exists && !Directory.Exists(newPath))
-                    dirInfo.MoveTo(newPath);
+                // перемещение файла в корзину
+                if (File.Exists(newPath))
+                {
+                    FileSystem.DeleteFile(
+                    newPath,
+                    UIOption.AllDialogs,
+                    RecycleOption.SendToRecycleBin);
+                }
+
+                // перемещение папки в корзину
+                if (Directory.Exists(newPath))
+                {
+                    FileSystem.DeleteDirectory(
+                    newPath,
+                    UIOption.AllDialogs,
+                    RecycleOption.SendToRecycleBin);
+                }
             }
         }
     }
