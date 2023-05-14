@@ -6,40 +6,22 @@ namespace Module_8
 {
     internal class Program
     {
-        static void Main()
-        { // Получить все файлы и папки корневого каталога: 
-            {
-                GetCatalogs(); //   Вызов метода получения директорий
-            }
-
-            static void GetCatalogs()
-            {
-
-                DirectoryInfo newDirectory = new DirectoryInfo(@"C:\Users\uites\OneDrive\Рабочий стол\66");// создание новой директории в корне вашего диска
-                if (!newDirectory.Exists)
-                    newDirectory.Create();
-
-                var newPath = @"C:\Users\uites\OneDrive\Рабочий стол\66";
-
-
-                // перемещение файла в корзину
-                if (File.Exists(newPath))
-                {
-                    FileSystem.DeleteFile(
-                    newPath,
-                    UIOption.AllDialogs,
-                    RecycleOption.SendToRecycleBin);
-                }
-
-                // перемещение папки в корзину
-                if (Directory.Exists(newPath))
-                {
-                    FileSystem.DeleteDirectory(
-                    newPath,
-                    UIOption.AllDialogs,
-                    RecycleOption.SendToRecycleBin);
+        static void Main(){
+            var _filePatch = @"C:\Users\uites\source\repos\Module_8\Program.cs"; // путь до файла
+            if (!File.Exists(_filePatch)){ //проверка на существование файла по указанному пути
+                //если не существует - создаем и записываем в него строки
+                using (StreamWriter _sw = File.CreateText(_filePatch)){
+                    _sw.WriteLine("My test string 88");
                 }
             }
+            // Открываем файл и читаем его содержимое
+            using (StreamReader _sr = File.OpenText(_filePatch)){
+                string str = "";
+                while ((str = _sr.ReadLine()) != null){ // Пока не кончатся строки - считываем из файла по одной и выводим в консоль
+                    Console.WriteLine(str);
+                }
+            }
+
         }
     }
 }
