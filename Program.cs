@@ -1,39 +1,58 @@
-using Microsoft.VisualBasic.FileIO;
 using System;
 using System.IO;
 
-namespace Module_8
+class BinaryExperiment
 {
-    internal class Program
+    const string SettingsFileName = "Settings.cfg";
+
+    static void Main()
     {
-        static void Main(){ // запись в файл Program.cs текущую дату и время
-            var FileInfo = new FileInfo(@"C:\Users\uites\source\repos\Module_8\Program.cs"); // путь до файла
-           
-            
-                using (StreamWriter _sw = FileInfo.AppendText()){
-                    _sw.WriteLine("// Time:" + DateTime.Now);
-                }
-            
-            // Открываем файл и читаем его содержимое
-            using (StreamReader _sr = FileInfo.OpenText()){
-                string str = "";
-                while ((str = _sr.ReadLine()) != null){ // Пока не кончатся строки - считываем из файла по одной и выводим в консоль
-                    Console.WriteLine(str);
-                }
+        // Пишем
+        WriteValues();
+        // Считываем
+        ReadValues();
+    }
+
+    static void WriteValues()
+    {
+        // Создаем объект BinaryWriter и указываем, куда будет направлен поток данных
+        using (BinaryWriter writer = new BinaryWriter(File.Open(SettingsFileName, FileMode.Create)))
+        {
+            // записываем данные в разном формате
+            writer.Write(20.666F);
+            writer.Write(@"Тестовая строка");
+            writer.Write(55);
+            writer.Write(false);
+        }
+    }
+
+    static void ReadValues()
+    {
+        float FloatValue;
+        string StringValue;
+        int IntValue;
+        bool BooleanValue;
+
+        if (File.Exists(SettingsFileName))
+        {
+            // Создаем объект BinaryReader и инициализируем его возвратом метода File.Open.
+            using (BinaryReader reader = new BinaryReader(File.Open(SettingsFileName, FileMode.Open)))
+            {
+                // Применяем специализированные методы Read для считывания соответствующего типа данных.
+                FloatValue = reader.ReadSingle();
+                StringValue = reader.ReadString();
+                IntValue = reader.ReadInt32();
+                BooleanValue = reader.ReadBoolean();
             }
 
+            Console.WriteLine("Из файла считано:");
+
+            Console.WriteLine("Дробь: " + FloatValue);
+            Console.WriteLine("Строка: " + StringValue);
+            Console.WriteLine("Целое: " + IntValue);
+            Console.WriteLine("Булево значение " + BooleanValue);
         }
     }
 }
 
 
-
-
-
-
-
-
-
-
-// Time:14.05.2023 23:16:40
-// Time:14.05.2023 23:17:11
