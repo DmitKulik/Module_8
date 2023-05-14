@@ -1,4 +1,4 @@
-п»їusing Microsoft.VisualBasic.FileIO;
+using Microsoft.VisualBasic.FileIO;
 using System;
 using System.IO;
 
@@ -6,18 +6,18 @@ namespace Module_8
 {
     internal class Program
     {
-        static void Main(){
-            var _filePatch = @"C:\Users\uites\source\repos\Module_8\Program.cs"; // РїСѓС‚СЊ РґРѕ С„Р°Р№Р»Р°
-            if (!File.Exists(_filePatch)){ //РїСЂРѕРІРµСЂРєР° РЅР° СЃСѓС‰РµСЃС‚РІРѕРІР°РЅРёРµ С„Р°Р№Р»Р° РїРѕ СѓРєР°Р·Р°РЅРЅРѕРјСѓ РїСѓС‚Рё
-                //РµСЃР»Рё РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚ - СЃРѕР·РґР°РµРј Рё Р·Р°РїРёСЃС‹РІР°РµРј РІ РЅРµРіРѕ СЃС‚СЂРѕРєРё
-                using (StreamWriter _sw = File.CreateText(_filePatch)){
-                    _sw.WriteLine("My test string 88");
+        static void Main(){ // запись в файл Program.cs текущую дату и время
+            var FileInfo = new FileInfo(@"C:\Users\uites\source\repos\Module_8\Program.cs"); // путь до файла
+           
+            
+                using (StreamWriter _sw = FileInfo.AppendText()){
+                    _sw.WriteLine("// Time:" + DateTime.Now);
                 }
-            }
-            // РћС‚РєСЂС‹РІР°РµРј С„Р°Р№Р» Рё С‡РёС‚Р°РµРј РµРіРѕ СЃРѕРґРµСЂР¶РёРјРѕРµ
-            using (StreamReader _sr = File.OpenText(_filePatch)){
+            
+            // Открываем файл и читаем его содержимое
+            using (StreamReader _sr = FileInfo.OpenText()){
                 string str = "";
-                while ((str = _sr.ReadLine()) != null){ // РџРѕРєР° РЅРµ РєРѕРЅС‡Р°С‚СЃСЏ СЃС‚СЂРѕРєРё - СЃС‡РёС‚С‹РІР°РµРј РёР· С„Р°Р№Р»Р° РїРѕ РѕРґРЅРѕР№ Рё РІС‹РІРѕРґРёРј РІ РєРѕРЅСЃРѕР»СЊ
+                while ((str = _sr.ReadLine()) != null){ // Пока не кончатся строки - считываем из файла по одной и выводим в консоль
                     Console.WriteLine(str);
                 }
             }
@@ -33,3 +33,7 @@ namespace Module_8
 
 
 
+
+
+// Time:14.05.2023 23:16:40
+// Time:14.05.2023 23:17:11
