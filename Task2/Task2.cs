@@ -25,7 +25,7 @@ namespace Task2{
                     _sizeDir = _file.Length;
                 }
 
-                foreach (var dir in _dirInfo.GetDirectories()){// директории
+                foreach (var _dirin in _dirInfo.GetDirectories()){// директории
                     SizeInBytes(_dir, ref _sizeDir);
                 }
             }

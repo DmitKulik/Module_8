@@ -5,13 +5,10 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 
 namespace Module_8{
-    class Program
-    {
-        static void Main()
-        {
+    class Program{
+        static void Main(){
 
 
         }
-
     }
 }
